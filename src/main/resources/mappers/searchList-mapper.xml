@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="SearchList">
+	<resultMap type="SearchList" id="resultSearchList">
+		<id property="m_id" column="m_id" />
+		<result property="hashtag" column="hashtag" />
+		<result property="m_img" column="m_img" />
+	</resultMap>
+	<select id="showHashTag" parameterType="string"
+		resultType="SearchList">
+		select hashtag.b_id b_id, b_img1 b_img, h_tag hashtag from
+		hashtag
+		join boardadd on hashtag.b_id = boardadd.b_id
+		join board on hashtag.b_id = board.b_id
+		where h_tag=#{hashtag}
+		order by b_date desc
+	</select>
+</mapper>

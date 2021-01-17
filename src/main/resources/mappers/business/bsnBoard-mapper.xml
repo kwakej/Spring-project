@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="BsnBoard">
+	<resultMap type="BsnBoard" id="resultBsnBoard">
+		<id property="m_id" column="m_id"/>
+		<result property="bb_id" column="bb_id"/>
+		<result property="bb_name" column="bb_name"/>
+		<result property="bb_info" column="bb_info"/>
+		<result property="bb_price" column="bb_price"/>
+		<result property="bb_option1" column="bb_option1"/>
+		<result property="bb_option2" column="bb_option2"/>
+		<result property="bb_option3" column="bb_option3"/>
+		<result property="bb_option4" column="bb_option4"/>
+		<result property="bb_type" column="bb_type"/>
+		<result property="bb_topid" column="bb_topid"/>
+		<result property="bb_date" column="bb_date"/>
+	</resultMap>
+ 	<resultMap type="BsnBoardAdd" id="resultBsnBoardAdd">
+		<id property="bb_id" column="bb_id"/>
+		<result property="bb_img1" column="bb_img1"/>
+		<result property="bb_img2" column="bb_img2"/>
+		<result property="bb_img3" column="bb_img3"/>
+		<result property="bb_img4" column="bb_img4"/>
+		<result property="bb_img5" column="bb_img5"/>
+		<result property="bb_img6" column="bb_img6"/>
+		<result property="bb_img7" column="bb_img7"/>
+		<result property="bb_img8" column="bb_img8"/>
+		<result property="bb_img9" column="bb_img9"/>
+		<result property="bb_img10" column="bb_img10"/>
+	</resultMap>
+	
+	<select id="bsnListCount" resultType="int">
+		select count(*) from businessboard
+	</select>
+	
+	<select id="bsnSelectList" resultType="arraylist" resultMap="resultBsnBoard">
+		select * from businessboard
+	</select>
+	
+	<select id="bsnSelectOne" parameterType="string" resultType="BsnBoard">
+		select * from businessboard where bb_id=#{bb_id}
+	</select>
+	<insert id="insertBsnBoard" parameterType="BsnBoard" flushCache="true" statementType="PREPARED">
+		insert into businessboard values(
+			'BB'||TO_CHAR(SYSDATE,'RRMMDD')||LPAD(BSNBOARD_SEQ.NEXTVAL,3,'0'), #{m_id},
+			#{bb_name}, #{bb_info}, #{bb_price}, #{bb_option1}, #{bb_option2}, #{bb_option3}, #{bb_option4},
+			#{bb_type}, '0', sysdate 
+		)
+	</insert>
+	<insert id="insertBsnBoardAdd" parameterType="string" flushCache="true" statementType="PREPARED">
+		insert into businessboardAdd values(
+			#{bb_id}, #{bb_img1}, #{bb_img2}, #{bb_img3}, #{bb_img4}, #{bb_img5}, #{bb_img6}, #{bb_img7}, #{bb_img8}, #{bb_img9}, #{bb_img10}
+		)
+	</insert>
+	
+	<update id="updateBsnBoard" parameterType="BsnBoard" flushCache="true" statementType="PREPARED">
+		update businessboard set bb_name=#{bb_name}, bb_info=#{bb_info}, bb_price=#{bb_price}, bb_option1=#{bb_option1}, bb_option2=#{bb_option2}, bb_option3=#{bb_option3}, bb_option4=#{bb_option4}  
+		where bb_id=#{bb_id}
+	</update>
+	<update id="updateBsnBoardAdd" parameterType="BsnBoardAdd" flushCache="true" statementType="PREPARED">
+		update businessboardAdd set bb_img1=#{bb_img1}, bb_img2=#{bb_img2}, bb_img3=#{bb_img3}, 
+			bb_img4=#{bb_img4}, bb_img5=#{bb_img5}, bb_img6=#{bb_img6}, bb_img7=#{bb_img7}, bb_img8=#{bb_img8}, bb_img9=#{bb_img9}, bb_img10=#{bb_img10}
+		where bb_id=#{bb_id}
+	</update>
+	
+	<delete id="deleteBsnBoard" parameterType="BsnBoard" flushCache="true" statementType="PREPARED">
+		delete from businessboard where bb_id=#{bb_id}
+	</delete>
+	<delete id="deleteBsnBoardAdd" parameterType="string" flushCache="true" statementType="PREPARED">
+		delete from businessboardAdd where bb_id=#{bb_id}
+	</delete>
+</mapper>

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+body {
+	text-align:center;
+	margin:0;
+}
+
+#contents {
+	width:1000px;
+	left:50%;
+	margin: 0 auto;
+}
+
+#header_contents{
+	
+}
+
+#profileinfo{
+	height:170px;
+}
+
+#profileimg{
+	float: left;
+	width:35%;
+}
+
+#proimg{
+	width:150px;
+	height:150px;
+}
+
+#profilecontents{
+	display:inline-block;
+	width:65%;
+	text-align:left;
+}
+
+#mbtn{
+	background-color:white;
+	border:1px solid gray;
+}
+
+#storylist{
+	margin-top:50px;
+	clear:both;
+	text-align:left;
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.project.tain.post.model.domain.TimeLine" alias="TimeLine"/>
+		<typeAlias type="com.project.tain.post.model.domain.SearchList" alias="SearchList"/>
+		<typeAlias type="com.project.tain.post.model.domain.Story" alias="Story"/>
+		<typeAlias type="com.project.tain.member.model.vo.MemberRegVO" alias="MemberRegVO" />
+		<typeAlias type="com.project.tain.management.model.domain.ReportAllManage" alias="ReportAllManage"/>
+		
+		
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mappers/timeline-mapper.xml"/>
+		<mapper resource="mappers/searchList-mapper.xml" />
+		<mapper resource="mappers/story-mapper.xml" />
+		<mapper resource="mappers/memberReg-mapper.xml" />
+		<mapper resource="mappers/reportAllManage-mapper.xml"/>
+		
+
+	</mappers>
+</configuration>

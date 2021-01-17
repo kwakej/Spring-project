@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Story">
+	<resultMap type="Story" id="resultStory">
+		<id property="m_id" column="m_id" />
+		<result property="m_img" column="m_img" />
+	</resultMap>
+
+	<!-- 스토리 인서트 -->
+	<insert id="storyInsert" flushCache="true"
+		statementType="PREPARED">
+		insert into story (s_id, m_id, s_img, s_type) values('ST'||TO_CHAR(SYSDATE,'RRMMDD')||LPAD(s_seq.NEXTVAL,3,'0'),#{my_name},
+		#{s_img}, 'G')
+	</insert>
+
+	<!-- 계정 종류 확인 -->
+	<select id="chkmember" parameterType="string" resultType="Story">
+		select
+		m_usage from member where m_id=#{m_id}
+	</select>
+
+	<!-- 내 스토리 보기 -->
+	<select id="showMyStory" parameterType="string"
+		resultType="Story">
+		select m_id , s_img from story where m_id=#{m_id}
+	</select>
+
+	<!-- 스토리 삭제 -->
+	<delete id="deleteStory" parameterType="Story" flushCache="true"
+		statementType="PREPARED" timeout="20">
+		delete from story
+		where m_id= #{m_id}
+		and s_img = #{s_img}
+	</delete>
+
+	<!-- 스토리 조회 -->
+	<select id="showAllStory" parameterType="string"
+		resultType="Story">
+		select listagg(m_id,'|') within group (order by s_date
+		desc) as m_id, s_type
+		from (select max(s_date) as s_date, m_id, s_type
+		from story join follow on
+		m_id = m_id2
+		where m_id1=#{m_id}
+		and s_type='G'
+		and s_date > SYSDATE - 1
+		group by m_id, s_type)
+		group by s_type
+	</select>
+	<select id="showAllAStory" resultType="Story">
+		select listagg(m_id,'|')
+		within group (order by s_date desc) as m_id, s_type
+		from (select max(s_date) as s_date, m_id, s_type
+		from story join follow on m_id = m_id2
+		and s_type='A'
+		and s_date > SYSDATE - 1
+		group by m_id, s_type)
+		group by s_type
+	</select>
+	<select id="storyResult" parameterType="Story"
+		resultType="arrayList" resultMap="resultStory">
+		select s_img from story where m_id=#{id}
+		and s_type=#{s_type}
+		and s_date > SYSDATE - 1
+	</select>
+	<select id="eachStory" parameterType="string"
+		resultType="arrayList" resultMap="resultStory">
+		select m_id, s_img from story where m_id=#{id} and s_date > SYSDATE - 1
+	</select>
+</mapper>

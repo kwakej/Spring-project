@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+body {
+	width: 100%;
+	height: 100%;
+}
+
+#searchList_con {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+#list_big_con {
+	width: 1058px;
+}
+
+.eachPost {
+	width: 314px;
+	height: 314px;
+	background-color: cadetblue;
+	margin-left: 29px;
+	margin-bottom: 29px;
+	float: left;
+}
+
+.eachPost {
+	cursor: pointer;
+}
